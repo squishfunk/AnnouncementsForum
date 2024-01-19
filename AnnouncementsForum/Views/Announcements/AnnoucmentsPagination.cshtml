@@ -7,41 +7,65 @@
     
 }
 
-<h1>Ogłoszenia</h1>
+<h1>Announcements</h1>
 
 <form asp-controller="Announcements" asp-action="AnnoucmentsPagination">
-    <div class="row">
-        <div class="col">
-            <input class="form-control" list="datalistOptions" id="exampleDataList" name="search" placeholder="Znajdź coś dla siebie">
-        </div>
-        <div class="col">
-            <button type="submit" class="btn btn-primary">Wyszukaj</button>
+    <div class="p-5">
+        <div class="container">
+            <div class="card">
+                <div class="p-3 row">
+                     <div class="col">
+                                <input class="form-control" list="datalistOptions" id="exampleDataList" name="search" placeholder="Search for announcements">
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    
 </form>
-
-<div class="row gy-5">
+<div class="album bg-light">
+    <div class="container">
+        <div class="row">
 @foreach (var annoucment in Model.Data)
 {
     var desc = new HtmlString(annoucment.Description);
-
-        <div class="col-4">
-            <a class="d-none" id="_@annoucment.Id" asp-area="" asp-controller="Announcements" asp-action="Details" asp-route-id="@annoucment.Id"></a>
-            <div class="card goToDetails" data-id="@annoucment.Id">
-                <div class="card-body">
-                    <h5 class="card-title text-truncate">@annoucment.Title</h5>
-                    <p class="card-text text-truncate">@desc</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-body-secondary">Data dodania: @annoucment.CreateDate</small>
-                    <small class="text-body-secondary">Wyświetlenia: @annoucment.Views</small>
+    <div class="col-md-4">
+        <a class="d-none" id="_@annoucment.Id" asp-area="" asp-controller="Announcements" asp-action="Details" asp-route-id="@annoucment.Id"></a>
+        <div class="card mb-4 shadow-sm" data-id="@annoucment.Id">
+            <img
+                class="card-img-top"
+                width="100%"
+                height="225"
+                src="{{ asset($offer->getCoverImagePath()) }}"
+                style="object-fit: cover;"/>
+            <div class="card-body">
+                <p class="card-title">
+                    <b>@annoucment.Title</b>
+                </p>
+                <p class="card-text">
+                    @desc
+                </p>
+                <div
+                    class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{{ route('offer-show', $offer ) }}"
+                           type="button"
+                           class="btn btn-sm btn-outline-secondary">
+                            Show Annoucment
+                        </a>
+                    </div>
+                    <small class="text-muted">@annoucment.CreateDate</small>
                 </div>
             </div>
-            
         </div>
-    
-}
     </div>
+}
+        </div>
+    </div>
+</div>
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item @(Model.Page == 0? "disabled" : "")">
