@@ -1,0 +1,42 @@
+﻿@model AnnouncementsForum.Models.ForbiddenWords
+@{
+    ViewData["Title"] = "Słowa zakazane";
+    var forbiddenWOrds = ViewData["ForbiddenWords"] as List<ForbiddenWords>;
+}
+
+<h1>Admin Panel</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            @Html.Partial("~/Views/Shared/_AdminPanelNavBar.cshtml")
+        </div>
+        <div class="col">
+            <div class="row">
+                <form asp-controller="ForbiddenWords" asp-action="Create" class="row g-3">
+                    <div class="col-auto">
+                        <label for="inputPassword2" class="visually-hidden">Nazwa</label>
+                        <input type="text" class="form-control" id="inputPassword2" placeholder="Nazwa" asp-for="name" required>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Dodaj</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                @foreach (var word in forbiddenWOrds)
+                {
+                    <div class="col">
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            <button class="btn btn-outline-primary">@word.name</button>
+                            <form asp-controller="ForbiddenWords" asp-action="Delete">
+                                <input asp-for="Id" type="text" class="d-none" value="@word.Id">
+                                <button type="submit" class="btn btn-danger">X</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

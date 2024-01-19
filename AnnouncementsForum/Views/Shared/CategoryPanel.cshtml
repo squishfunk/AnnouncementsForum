@@ -1,0 +1,18 @@
+﻿@model IEnumerable<AnnouncementsForum.Models.CategoryChilds>
+@{
+    ViewData["Title"] = "Category";
+}
+
+@foreach(var category in Model)
+{
+    <ul>
+        <li class="ms-1">
+            <p>@category.Name</p>
+            @if (category.Childs != null)
+            {
+                @Html.Partial("~/Views/Shared/CategoryPanel.cshtml", category.Childs)
+            }
+        </li>
+    </ul>
+}
+

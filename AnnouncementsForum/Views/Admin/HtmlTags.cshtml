@@ -1,0 +1,41 @@
+﻿@model IEnumerable<AnnouncementsForum.Models.HtmlTags>
+@{
+    ViewData["Title"] = "Dozwolone tagi";
+}
+<h1>Dozwolone tagi</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            @Html.Partial("~/Views/Shared/_AdminPanelNavBar.cshtml")
+        </div>
+        <div class="col">
+            <div class="row">
+                @foreach (var tag in Model)
+                {
+                    <div class="col">
+                        <form asp-controller="HtmlTags" asp-action="Change">
+                            <div class="form-check form-switch">
+                                <input class="d-none" asp-for="@tag.Id" type="text">
+                                <input class="d-none" asp-for="@tag.Name" type="text">
+                                <input class="form-check-input submitTag" data-button="@tag.Id" asp-for="@tag.IsAllowed" type="checkbox" role="switch" id="flexSwitchCheckDefault_@tag.Id">
+                                <label class="form-check-label" for="flexSwitchCheckDefault_@tag.Id">@tag.Name</label>
+                                <button type="submit" class="d-none" id="_@tag.Id"></button>
+                            </div>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" on-content-loaded="true">
+    document.querySelectorAll('input.submitTag').forEach(element => {
+        element.onclick = (elem) => {
+            document.querySelector('button#_' + elem.target.dataset.button).click();
+            console.log('click', document.querySelector('button#_' + elem.target.dataset.button))
+        }
+    })
+</script>

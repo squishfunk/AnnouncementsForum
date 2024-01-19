@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AnnouncementsForum.Models.AdminAnnoucments>
+@{
+    ViewData["Title"] = "Wiadomości admina";
+}
+
+<h1>Admin Panel</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            @Html.Partial("~/Views/Shared/_AdminPanelNavBar.cshtml")
+        </div>
+        <div class="col">
+            <div class="row">
+                <form asp-controller="AdminAnnoucments" asp-action="Create">
+                    <div class="row">
+                        <div class="col">
+                            <input name="Title" type="text" class="form-control" placeholder="Title" aria-label="Nazwa">
+                        </div>
+                        <div class="col">
+                            <input name="Description" type="text" class="form-control" placeholder="Description" aria-label="Nazwa">
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary">Dodaj</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @foreach (var annoucment in Model)
+            {
+                <div class="row">
+                    <div class="row">
+                        <div class="col-1">
+                            @annoucment.Title
+                        </div>
+                        <div class="col-1">
+                            <a asp-area="" asp-controller="AdminAnnoucments" asp-action="Edit" asp-route-id="@annoucment.Id" class="btn btn-primary">Edytuj</a>
+                        </div>
+                        <div class="col-1">
+                            <form asp-controller="AdminAnnoucments" asp-action="Delete">
+                                <input name="Id" type="text" class="d-none" value="@annoucment.Id">
+                                <button type="submit" class="btn btn-danger">Usuń</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @annoucment.Description
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+</div>

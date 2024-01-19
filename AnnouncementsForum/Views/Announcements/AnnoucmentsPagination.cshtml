@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Html
+@model AnnouncementsForum.Models.PaginAnnoucmentModel
+@{
+    ViewData["Title"] = "Annoucments";
+    var previous = Model.Page - 1;
+    var next = Model.Page + 1;
+    
+}
+
+<h1>Ogłoszenia</h1>
+
+<form asp-controller="Announcements" asp-action="AnnoucmentsPagination">
+    <div class="row">
+        <div class="col">
+            <input class="form-control" list="datalistOptions" id="exampleDataList" name="search" placeholder="Znajdź coś dla siebie">
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Wyszukaj</button>
+        </div>
+    </div>
+</form>
+
+<div class="row gy-5">
+@foreach (var annoucment in Model.Data)
+{
+    var desc = new HtmlString(annoucment.Description);
+
+        <div class="col-4">
+            <a class="d-none" id="_@annoucment.Id" asp-area="" asp-controller="Announcements" asp-action="Details" asp-route-id="@annoucment.Id"></a>
+            <div class="card goToDetails" data-id="@annoucment.Id">
+                <div class="card-body">
+                    <h5 class="card-title text-truncate">@annoucment.Title</h5>
+                    <p class="card-text text-truncate">@desc</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">Data dodania: @annoucment.CreateDate</small>
+                    <small class="text-body-secondary">Wyświetlenia: @annoucment.Views</small>
+                </div>
+            </div>
+            
+        </div>
+    
+}
+    </div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item @(Model.Page == 0? "disabled" : "")">
+            <a class="page-link" asp-controller="Announcements" asp-action="AnnoucmentsPagination" asp-route-id="@previous" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @for(var pageCount=0;pageCount<=Model.Total;pageCount++)
+        {
+            var pageDisplay = pageCount + 1;
+            <li class="page-item"><a class="page-link" asp-controller="Announcements" asp-action="AnnoucmentsPagination" asp-route-id="@pageCount">@pageDisplay</a></li>
+        }
+        <li class="page-item @(Model.Page == Model.Total? "disabled" : "")">
+            <a class="page-link" asp-controller="Announcements" asp-action="AnnoucmentsPagination" asp-route-id="@next" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<script type="text/javascript" on-content-loaded="true">
+    document.querySelectorAll('div.goToDetails').forEach(element => {
+        element.onclick = (e) => {
+            e.preventDefault();
+            document.querySelector('a#_' + e.target.offsetParent.dataset.id).click();
+        }
+    })
+</script>

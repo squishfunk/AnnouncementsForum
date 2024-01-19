@@ -1,0 +1,28 @@
+﻿@model IEnumerable<AnnouncementsForum.Models.CategoryChilds>;
+
+@foreach(var category in Model)
+{
+    var collapseText = "childsCollapse" + category.Id;
+    var collapseTextId = "#" + collapseText;
+
+    <li>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="categoryId" value="@category.Id" id="@category.Id">
+            <label class="form-check-label" for="@category.Id">
+                @category.Name
+            </label>
+            @if (category.Childs.Count != 0)
+            {
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="@collapseTextId" aria-expanded="false" aria-controls="@collapseText">+</a>
+            }
+        </div>
+        @if (category.Childs.Count != 0)
+        {
+            <ul id="@collapseText" class="collapse">
+                @Html.Partial("~/Views/Shared/_CategoryCheckBox.cshtml", category.Childs)
+            </ul>
+        }
+    </li>
+    
+}
+

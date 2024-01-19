@@ -1,0 +1,56 @@
+﻿@model AnnouncementsForum.Models.ReportedAnnoucmentModel
+@{
+    ViewData["Title"] = "Zgłoszone ogłoszenia";
+    var reportedAnnoucments = ViewData["ReportedAnnoucments"] as List<ReportedAnnoucmentModel>;
+}
+
+<h1>Admin Panel</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            @Html.Partial("~/Views/Shared/_AdminPanelNavBar.cshtml")
+        </div>
+        <div class="col">
+            @foreach (var reportedAnnoucment in reportedAnnoucments)
+            {
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <h1>Ogłoszenie</h1>
+                        </div>
+                        <div class="row">
+                            <p>Title: @reportedAnnoucment.AnnoucmentTitle</p>
+                            <p>Description: @reportedAnnoucment.AnnoucmentDescription</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <h1>Zgłoszenie</h1>
+                             </div>
+                            <div class="col">
+                                <form asp-controller="ReportedAnnoucments" asp-action="RemoveReport">
+                                    <input asp-for="ID" type="text" class="d-none" value="@reportedAnnoucment.ID">
+                                    <input asp-for="AnnoucmentId" type="text" class="d-none" value="@reportedAnnoucment.AnnoucmentId">
+                                    <button type="submit" class="btn btn-primary">Usuń zgłoszenie</button>
+                                </form>
+                                <form asp-controller="ReportedAnnoucments" asp-action="RemovePost">
+                                    <input asp-for="ID" type="text" class="d-none" value="@reportedAnnoucment.ID">
+                                    <input asp-for="AnnoucmentId" type="text" class="d-none" value="@reportedAnnoucment.AnnoucmentId">
+                                    <button type="submit" class="btn btn-danger">Usuń ogłoszenie</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p>User: @reportedAnnoucment.UserName</p>
+                        </div>
+                        <div class="row">
+                            <p>powód: @reportedAnnoucment.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿@model AnnouncementsForum.Models.ReportedAnnoucment;
+@{
+
+}
+<h1>Zgłoszenie ogłoszenia</h1>
+
+<form asp-controller="ReportedAnnoucments" asp-action="Create">
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Opisz problem z ogłoszeniem</label>
+        <input class="d-none" asp-for="AnnouncementId" value="@Model.AnnouncementId" />
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" asp-for="Description" required></textarea>
+        <button type="submit" class="btn btn-primary">Zgłoś</button>
+    </div>
+</form>

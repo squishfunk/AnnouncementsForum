@@ -1,0 +1,16 @@
+﻿@model IEnumerable<AnnouncementsForum.Models.Announcement>
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h1>Konto</h1>
+
+@foreach (var annoucment in Model)
+{
+    <div>
+        <strong>@annoucment.Title</strong><span>@annoucment.CreateDate</span> 
+        | <a asp-area="" asp-controller="Announcements" asp-action="Edit" asp-route-id="@annoucment.Id">Edytuj</a>
+        | <a asp-area="" asp-controller="Announcements" asp-action="Delete" asp-route-id="@annoucment.Id">Usuń</a>
+        <p>@annoucment.Description</p>
+    </div>
+}

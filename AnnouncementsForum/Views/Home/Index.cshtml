@@ -1,0 +1,19 @@
+﻿@model IEnumerable<AnnouncementsForum.Models.AdminAnnoucments>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h1>Witaj w panelu administratora</h1>
+
+@foreach (var annoucment in Model)
+{
+    <div class="row">
+        <div class="row">
+            <div class="col-1">
+                @annoucment.Title
+            </div>
+        </div>
+        <div class="row">
+            @annoucment.Description
+        </div>
+    </div>
+}

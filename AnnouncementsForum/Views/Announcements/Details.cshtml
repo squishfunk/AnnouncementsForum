@@ -1,0 +1,22 @@
+﻿@model AnnouncementsForum.Models.Announcement
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <div class="col"> 
+        <h1>@Model.Title</h1> 
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @Model.Description
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <small class="text-body-secondary">Data dodania: @Model.CreateDate</small>
+    </div>
+</div>
+

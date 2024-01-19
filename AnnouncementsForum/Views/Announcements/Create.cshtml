@@ -1,0 +1,40 @@
+﻿@model (Announcement announcement, List<CategoryChilds> categories)
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Announcement</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="row">
+                <ul>
+                    @Html.Partial("~/Views/Shared/_CategoryCheckBox.cshtml", Model.categories)
+                </ul>
+            </div>
+            <div class="form-group">
+                <label asp-for="announcement.Title" class="control-label"></label>
+                <input asp-for="announcement.Title" name="@nameof(Model.announcement.Title)" class="form-control" required />
+                <span asp-validation-for="announcement.Title" class="text-danger"></span>
+            </div>
+            @Html.ValidationMessage("ForbiddenWords")
+            <div class="form-group">
+                <label asp-for="announcement.Description" class="control-label"></label>
+                <input asp-for="announcement.Description" name="@nameof(Model.announcement.Description)" class="form-control" required />
+                <span asp-validation-for="announcement.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
